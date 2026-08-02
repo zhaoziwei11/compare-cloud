@@ -1,8 +1,17 @@
 {
-  "endpoint": "pageOwnerOrderBillingList",
+  "endpoint": "pageCarrierSettlementDriver",
   "body": {
-    "pageNum": 1,
-    "pageSize": 99999,
-    "createTime": ["__START__ 00:00:00", "__END__ 23:59:59"]
+    "page": 1,
+    "pageSize": 1000,
+    "childNo": "",
+    "status": "",
+    "consumptionCardSettlementStatus": "",
+    "orderGoodsNo": "",
+    "driverUserNo": "",
+    "driverUserName": "",
+    "platformFreightQuotationTaxType": "",
+    "ownerUserNos": [],
+    "startTime": "__START__ 00:00:00",
+    "endTime": "__END__ 23:59:59"
   }
 }

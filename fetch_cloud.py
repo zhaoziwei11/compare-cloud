@@ -35,7 +35,7 @@ DATA_DIR = Path(__file__).parent / "data"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 WAYBILL_BASE = "https://gateway.91msl.com/clx-performance/pc/carrier/orderChild/"
-BILLING_BASE = "https://gateway.91msl.com/clx-performance/pc/carrier/billing/"
+BILLING_BASE = "https://gateway.91msl.com/clx-performance/pc/carrier/settlementDriver/"
 
 
 def build_headers():
