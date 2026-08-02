@@ -90,8 +90,8 @@ def fetch_all(base_url, endpoint, body, headers, max_pages=300):
     page = 1
     while page <= max_pages:
         b = dict(body)
-        b["pageNum"] = page
-        b["pageSize"] = b.get("pageSize", 99999)
+        b["page"] = page
+        b["pageSize"] = b.get("pageSize", 200)
         try:
             r = requests.post(base_url + endpoint, json=b, headers=headers, timeout=120)
             j = r.json()

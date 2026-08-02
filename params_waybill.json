@@ -1,6 +1,8 @@
 {
   "endpoint": "pageCarrierOrderChildList",
   "body": {
+    "page": 1,
+    "pageSize": 200,
     "orderNo": "",
     "orderSource": " ",
     "childNo": "",
@@ -11,14 +13,11 @@
     "sendAddress": "",
     "receiveAddress": "",
     "statusList": [],
-    "timeType": 2,
+    "timeType": 16,
     "ownerUserNos": [],
-    "takeOrderWay": " ",
     "driverStatus": [],
     "electronicCodeChildType": [],
-    "templateId": 69,
-    "pageNum": 1,
-    "pageSize": 99999,
-    "timeRange": ["__START__", "__END__"]
+    "beginTime": "__START__ 00:00:00",
+    "endTime": "__END__ 23:59:59"
   }
 }
