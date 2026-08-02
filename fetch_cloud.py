@@ -94,7 +94,11 @@ def fetch_all(base_url, endpoint, body, headers, max_pages=300):
         b["pageSize"] = b.get("pageSize", 200)
         try:
             r = requests.post(base_url + endpoint, json=b, headers=headers, timeout=120)
-            j = r.json()
+            try:
+                j = r.json()
+            except Exception as je:
+                print(f"[DIAG] endpoint={endpoint} 返回非JSON: status={r.status_code} body={r.text[:300]!r}")
+                return None
         except Exception as e:
             print(f"[ERROR] 请求 {endpoint} 失败: {e}")
             return None
