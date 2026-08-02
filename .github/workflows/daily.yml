@@ -1,0 +1,61 @@
+name: daily-compare-fetch
+
+on:
+  schedule:
+    # 北京时间 08:00 = UTC 00:00；周一至周五（GitHub cron 为 UTC，可能延迟几分钟）
+    - cron: "0 0 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      start:
+        description: "开始日期 YYYY-MM-DD（不填=自动算上一个工作日）"
+        required: false
+      end:
+        description: "结束日期 YYYY-MM-DD（不填=自动算昨天）"
+        required: false
+      time_field:
+        description: "运单列表时间字段（仅记录用）"
+        required: false
+        default: "磅单审核通过时间"
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+
+      - name: Run fetch (uses CHENGYUN_TOKEN secret)
+        env:
+          CHENGYUN_TOKEN: ${{ secrets.CHENGYUN_TOKEN }}
+        run: |
+          python fetch_cloud.py \
+            ${{ github.event.inputs.start && format('--start {0}', github.event.inputs.start) || '' }} \
+            ${{ github.event.inputs.end && format('--end {0}', github.event.inputs.end) || '' }} \
+            --time-field "${{ github.event.inputs.time_field || '磅单审核通过时间' }}"
+
+      - name: Push CSV to data branch
+        run: |
+          cp data/waybill_compare.csv /tmp/wb.csv 2>/dev/null || true
+          cp data/billing_compare.csv /tmp/bi.csv 2>/dev/null || true
+          cp data/meta.json /tmp/meta.json 2>/dev/null || true
+          git fetch origin data || true
+          git checkout -B data origin/data 2>/dev/null || git checkout -B data
+          mkdir -p data
+          cp /tmp/wb.csv data/waybill_compare.csv 2>/dev/null || true
+          cp /tmp/bi.csv data/billing_compare.csv 2>/dev/null || true
+          cp /tmp/meta.json data/meta.json 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/
+          git commit -m "data: $(date +%Y-%m-%dT%H:%M:%S)" || echo "no changes"
+          git push -f origin data
