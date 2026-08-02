@@ -1,0 +1,8 @@
+{
+  "endpoint": "pageOwnerOrderBillingList",
+  "body": {
+    "pageNum": 1,
+    "pageSize": 99999,
+    "createTime": ["__START__ 00:00:00", "__END__ 23:59:59"]
+  }
+}
