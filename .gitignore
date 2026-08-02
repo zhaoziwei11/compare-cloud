@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+compare_data/
+data/*.csv
+data/meta.json
+data/__pycache__/

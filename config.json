@@ -1,0 +1,12 @@
+{
+    "base_url": "https://chengyun.91msl.com",
+    "target_page": "https://chengyun.91msl.com/financial-center/settlement-manage/carrier-withdrawal-manage",
+    "login_url": "https://chengyun.91msl.com/login",
+    "browser_data_dir": "C:/Users/92893/WorkBuddy/automation-2026-07-22-13-54-50/withdraw-report/browser-data",
+    "output_dir": "C:/Users/92893/WorkBuddy/automation-2026-07-22-13-54-50/withdraw-report/reports",
+    "headless": true,
+    "timeout_ms": 30000,
+    "pending_fetch_time": "09:00",
+    "fail_fetch_time": "15:00",
+    "statuses": ["\u5f85\u63d0\u73b0", "\u6210\u529f", "\u5931\u8d25"]
+}
